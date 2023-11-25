@@ -38,10 +38,17 @@
   background-color: aqua;
   cursor: pointer;
   transition: 0.4s;
+  margin: 10px;
 
   &:hover {
     background-color: rgb(28, 187, 187);
   }
+}
+
+.load-button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .load-more-button {
@@ -54,6 +61,7 @@
   background-color: rgb(255, 166, 0);
   cursor: pointer;
   transition: 0.4s;
+  margin: 1rem;
 
   &:hover {
     background-color: rgb(187, 78, 28);

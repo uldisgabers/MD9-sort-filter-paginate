@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const tableWrapper = document.querySelector<HTMLTableElement>('.table-wrapper');
 const tableBody = document.querySelector<HTMLTableColElement>('.table-body');
 
 type Country = {
@@ -19,17 +18,22 @@ type Country = {
 let maxItems = 20;
 let sorter = '_sort=name&_order=asc';
 let loadThisMuchMore = `&_start=${maxItems - 20}&_end=${maxItems}`;
-let countryAPI = `http://localhost:3004/countries?${sorter}${loadThisMuchMore}`;
+let searchThisName = ``;
 
 // Draw countries
 const drawCountry = () => {
-  axios.get<Country[]>(`http://localhost:3004/countries?${sorter}${loadThisMuchMore}`).then(({ data }) => {
+  axios.get<Country[]>(`http://localhost:3004/countries?${sorter}${loadThisMuchMore}${searchThisName}`).then(({ data }) => {
     data.forEach((country) => {
+      let currencySymbol = country.currency.symbol;
+      if (country.currency.symbol == null) {
+        currencySymbol = '';
+      }
+
       tableBody.innerHTML += `
         <tr>
           <td>${country.name}</th>
           <td>${country.capital}</td>
-          <td>${country.currency.name}</td>
+          <td>${currencySymbol} ${country.currency.name}</td>
           <td>${country.language.name}</td>
         </tr>
       `;
@@ -47,7 +51,6 @@ const loadMoreBtn = document.querySelector<HTMLButtonElement>('.load-more-button
 loadMoreBtn.addEventListener('click', () => {
   if (maxItems <= 233) {
     maxItems += 20;
-    // countryAPI = `http://localhost:3004/countries?_start=${maxItems - 20}&_end=${maxItems}`;
     loadThisMuchMore = `&_start=${maxItems - 20}&_end=${maxItems}`;
     drawCountry();
   } else {
@@ -61,53 +64,44 @@ const sortNameAscButton = document.querySelector('.sort-name-asc');
 
 sortNameDescButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = `http://localhost:3004/countries?_sort=name&_order=desc`;
   sorter = '_sort=name&_order=desc';
-  // countryAPI += sorter;
   drawCountry();
 });
 
 sortNameAscButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=name&_order=asc';
   sorter = '_sort=name&_order=asc';
   drawCountry();
 });
 
 // DESC un ASC priekš capital
-
 const sortCapitalDescButton = document.querySelector('.sort-capital-desc');
 const sortCapitalAscButton = document.querySelector('.sort-capital-asc');
 
 sortCapitalDescButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=capital&_order=desc';
   sorter = '_sort=capital&_order=desc';
   drawCountry();
 });
 
 sortCapitalAscButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=capital&_order=asc';
   sorter = '_sort=capital&_order=asc';
   drawCountry();
 });
 
 // DESC un ASC priekš currency
-
 const sortCurrencyDescButton = document.querySelector('.sort-currency-desc');
 const sortCurrencyAscButton = document.querySelector('.sort-currency-asc');
 
 sortCurrencyDescButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=currency.name&_order=desc';
   sorter = '_sort=currency.name&_order=desc';
   drawCountry();
 });
 
 sortCurrencyAscButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=currency.name&_order=asc';
   sorter = '_sort=currency.name&_order=asc';
   drawCountry();
 });
@@ -119,18 +113,51 @@ const sortLanguageAscButton = document.querySelector('.sort-language-asc');
 
 sortLanguageDescButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=language.name&_order=desc';
   sorter = '_sort=language.name&_order=desc';
   drawCountry();
 });
 
 sortLanguageAscButton.addEventListener('click', () => {
   tableBody.innerHTML = '';
-  // countryAPI = 'http://localhost:3004/countries?_sort=language.name&_order=asc';
   sorter = '_sort=language.name&_order=asc';
   drawCountry();
 });
 
 // Search by name
+const searchForm = document.querySelector('.search-form');
+
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  tableBody.innerHTML = '';
+
+  const nameSearch = document.querySelector<HTMLInputElement>('input[name="name"]');
+  const nameSearchValue = nameSearch.value;
+
+  if (nameSearchValue) {
+    searchThisName = `&q=${nameSearchValue}`;
+  }
+  const capitalSearch = document.querySelector<HTMLInputElement>('input[name="capital"]');
+  const capitalSearchValue = capitalSearch.value;
+
+  if (capitalSearchValue) {
+    searchThisName = `&q=${capitalSearchValue}`;
+  }
+
+  const currencySearch = document.querySelector<HTMLInputElement>('input[name="currency"]');
+  const currencySearchValue = currencySearch.value;
+
+  if (currencySearchValue) {
+    searchThisName = `&q=${currencySearchValue}`;
+  }
+
+  const languageSearch = document.querySelector<HTMLInputElement>('input[name="language"]');
+  const languageSearchValue = languageSearch.value;
+
+  if (languageSearchValue) {
+    searchThisName = `&q=${languageSearchValue}`;
+  }
+
+  drawCountry();
+});
 
 drawCountry();

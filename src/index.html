@@ -19,8 +19,8 @@
     <h1 class="title">My Country List</h1>
     <form class="search-form">
         <div class="form_wrapper">
-            <label for="name" class="form__label" >Country Name</label>
-            <label for="capital" class="form__label">Capital</label>
+            <label for="name" class="form__label search-name-country" >Country Name</label>
+            <label for="capital" class="form__label search-name-capital">Capital</label>
             <label for="currency" class="form__label">Currency</label>
             <label for="language" class="form__label">Language</label>
             <input type="text" class="search-input-box" id="name" name="name" placeholder="Name">
@@ -28,7 +28,7 @@
             <input type="text" class="search-input-box" id="currency" name="currency" placeholder="Currency">
             <input type="text" class="search-input-box" id="language" name="language" placeholder="Language">
         </div>
-        <button class="search-button">Search</button>
+        <button type="submit" click="getNameValue()" class="search-button">Search</button>
     </form>
 
     <table class="table table-wrapper">
@@ -56,7 +56,9 @@
 
         </tbody>
     </table>
-    <button class="load-more-button">Load more</button>
+    <div class="load-button-wrapper">
+        <button class="load-more-button">Load more</button>
+    </div>
     <script src="/scripts.js"></script>
 </body>
 </html>
