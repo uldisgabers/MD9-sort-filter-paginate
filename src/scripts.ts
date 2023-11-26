@@ -42,8 +42,8 @@ const drawCountry = () => {
 };
 
 // Get API length
-const lengthOfAPI = (): Promise<number> => axios.get('http://localhost:3004/countries')
-  .then((response) => response.data.length);
+// const lengthOfAPI = (): Promise<number> => axios.get('http://localhost:3004/countries')
+//   .then((response) => response.data.length);
 
 // Load more button
 const loadMoreBtn = document.querySelector<HTMLButtonElement>('.load-more-button');

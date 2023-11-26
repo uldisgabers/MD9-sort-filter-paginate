@@ -15,8 +15,10 @@
     <title>MD9</title>
 </head>
 <body>
-  
-    <h1 class="title">My Country List</h1>
+    <div class="tittle-wrapper">
+        <h1 class="title">My Country List</h1>
+    </div>
+    
     <form class="search-form">
         <div class="form_wrapper">
             <label for="name" class="form__label search-name-country" >Country Name</label>
@@ -34,19 +36,19 @@
     <table class="table table-wrapper">
         <thead>
           <tr>
-            <th scope="col">Name
+            <th class="column-width" scope="col">Name
                 <i class="ai-arrow-up sort-name-desc"></i>
                 <i class="ai-arrow-down sort-name-asc"></i>
             </th>
-            <th scope="col">Capital
+            <th class="column-width" scope="col">Capital
                 <i class="ai-arrow-up sort-capital-desc"></i>
                 <i class="ai-arrow-down sort-capital-asc"></i>
             </th>
-            <th scope="col">Currency
+            <th class="column-width" scope="col">Currency
                 <i class="ai-arrow-up sort-currency-desc"></i>
                 <i class="ai-arrow-down sort-currency-asc"></i>
             </th>
-            <th scope="col">Language
+            <th class="column-width" scope="col">Language
                 <i class="ai-arrow-up sort-language-desc"></i>
                 <i class="ai-arrow-down sort-language-asc"></i>
             </th>
@@ -56,9 +58,11 @@
 
         </tbody>
     </table>
+
     <div class="load-button-wrapper">
         <button class="load-more-button">Load more</button>
     </div>
+
     <script src="/scripts.js"></script>
 </body>
 </html>
