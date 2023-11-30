@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const tableBody = document.querySelector<HTMLTableColElement>('.table-body');
+const tableBody = document.querySelector<HTMLTableColElement>('.table-body-js');
 
 type Country = {
   name: string;
@@ -46,7 +46,7 @@ const drawCountry = () => {
 //   .then((response) => response.data.length);
 
 // Load more button
-const loadMoreBtn = document.querySelector<HTMLButtonElement>('.load-more-button');
+const loadMoreBtn = document.querySelector<HTMLButtonElement>('.load-more-button-js');
 
 loadMoreBtn.addEventListener('click', () => {
   if (maxItems <= 233) {
@@ -130,31 +130,36 @@ searchForm.addEventListener('submit', (event) => {
   event.preventDefault();
   tableBody.innerHTML = '';
 
+  // country name
   const nameSearch = document.querySelector<HTMLInputElement>('input[name="name"]');
   const nameSearchValue = nameSearch.value;
 
   if (nameSearchValue) {
-    searchThisName = `&q=${nameSearchValue}`;
+    searchThisName = `&name_like=${nameSearchValue}`;
   }
+
+  // capital name
   const capitalSearch = document.querySelector<HTMLInputElement>('input[name="capital"]');
   const capitalSearchValue = capitalSearch.value;
 
   if (capitalSearchValue) {
-    searchThisName = `&q=${capitalSearchValue}`;
+    searchThisName = `&capital_like=${capitalSearchValue}`;
   }
 
+  // currency name
   const currencySearch = document.querySelector<HTMLInputElement>('input[name="currency"]');
   const currencySearchValue = currencySearch.value;
 
   if (currencySearchValue) {
-    searchThisName = `&q=${currencySearchValue}`;
+    searchThisName = `&currency.name_like=${currencySearchValue}`;
   }
 
+  // language name
   const languageSearch = document.querySelector<HTMLInputElement>('input[name="language"]');
   const languageSearchValue = languageSearch.value;
 
   if (languageSearchValue) {
-    searchThisName = `&q=${languageSearchValue}`;
+    searchThisName = `&language.name_like=${languageSearchValue}`;
   }
 
   drawCountry();
